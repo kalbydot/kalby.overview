@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="EU AI Act Compliance Matrix: which AI Act articles apply to providers, deployers, product manufacturers, authorised representatives, importers and distributors, as amended by the Digital Omnibus on AI.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>EU AI Act Compliance Matrix</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Work+Sans:wght@400;500;700;800&display=swap">
+<style>
+/* Layout: a register-style reference sheet — masthead, timeline rail, filter bar, then one matrix of articles × operators. */
+:root{
+  /* Kalby tokens (kalby.eu): ink on paper, red as punctuation and for Omnibus changes */
+  --bg:#f9f9f8; --surface:#ffffff; --ink:#181818; --graphite:#2e2f2f; --muted:#8b8b86; --rule:rgba(24,24,24,.12);
+  --accent:#181818; --accent-soft:#efefec; --omni:#db3846; --omni-soft:#fbe8ea;
+  --font-display:"Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-body:"Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:"Work Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#181818; --surface:#1f1f1f; --ink:#f9f9f8; --graphite:#c8c8c4; --muted:#7a7a75; --rule:rgba(249,249,248,.12);
+  --accent:#f9f9f8; --accent-soft:#2b2b2a; --omni:#db3846; --omni-soft:#3a1c20; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#181818; --surface:#1f1f1f; --ink:#f9f9f8; --graphite:#c8c8c4; --muted:#7a7a75; --rule:rgba(249,249,248,.12);
+  --accent:#f9f9f8; --accent-soft:#2b2b2a; --omni:#db3846; --omni-soft:#3a1c20; color-scheme:dark}
+
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:15px;line-height:1.5}
+.wrap{max-width:1240px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 56px;display:grid;gap:28px}
+a{color:inherit;font-weight:500;text-decoration:underline;text-decoration-color:var(--omni);text-decoration-thickness:2px;text-underline-offset:3px}
+a:hover{color:var(--omni)}
+:focus-visible{outline:2px solid var(--omni);outline-offset:3px}
+
+/* Masthead */
+.mast{display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:12px}
+.brand{font-family:var(--font-display);font-size:24px;font-weight:800;letter-spacing:-.02em}
+.brand span{color:var(--omni)}
+.ref{font-family:var(--font-mono);font-size:12px;color:var(--muted);letter-spacing:.04em}
+h1{font-family:var(--font-display);font-weight:800;letter-spacing:-.025em;font-size:clamp(32px,5vw,52px);line-height:1.05;margin:0;text-wrap:balance}
+.lede{max-width:68ch;color:var(--graphite);margin:0}
+.intro{display:grid;gap:14px}
+.basis{display:flex;flex-wrap:wrap;gap:8px 20px;font-size:13px}
+.basis div{display:flex;gap:6px;align-items:baseline}
+.basis b{font-family:var(--font-mono);font-weight:500;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+
+/* Timeline */
+.section-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}
+.tl{overflow-x:auto;padding-bottom:6px}
+.tl ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(10,minmax(118px,1fr));min-width:1180px;position:relative}
+.tl ol::before{content:"";position:absolute;left:0;right:0;top:7px;height:2px;background:var(--rule)}
+.tl li{position:relative;padding:22px 12px 0 0;display:grid;gap:4px;align-content:start}
+.tl li::before{content:"";position:absolute;top:2px;left:0;width:12px;height:12px;border-radius:50%;background:var(--surface);border:2px solid var(--accent)}
+.tl li.past::before{background:var(--accent)}
+.tl li.past{color:var(--muted)}
+.tl li.omni::before{border-color:var(--omni)}
+.tl li.omni.past::before{background:var(--omni)}
+.tl time{font-family:var(--font-mono);font-size:12px;font-weight:500;font-variant-numeric:tabular-nums}
+.tl span{font-size:13px;line-height:1.35}
+.tl .now{position:absolute;top:-2px;height:20px;width:2px;background:var(--ink)}
+.tl .now em{position:absolute;top:-18px;left:-4px;font-style:normal;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;white-space:nowrap;text-transform:uppercase}
+
+/* Controls */
+.controls{display:grid;gap:12px;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--rule)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.row{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.row > .lab{font-family:var(--font-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);min-width:76px}
+.chip{font:inherit;font-size:13px;border:1px solid var(--rule);background:var(--surface);color:var(--ink);padding:5px 12px;border-radius:999px;cursor:pointer}
+.chip:hover{border-color:var(--accent)}
+.chip[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.chip.omnichip[aria-pressed="true"]{background:var(--omni);border-color:var(--omni)}
+.search{font:inherit;font-size:14px;padding:6px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--surface);color:var(--ink);flex:1 1 220px;min-width:0;max-width:340px}
+.count{font-family:var(--font-mono);font-size:12px;color:var(--muted);margin-left:auto}
+
+/* Legend */
+.legend{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13px;color:var(--muted)}
+.legend span{display:inline-flex;gap:8px;align-items:center}
+
+/* Matrix */
+.tablebox{overflow-x:auto;background:var(--surface);border:1px solid var(--rule);border-radius:4px}
+table{border-collapse:collapse;width:100%;min-width:900px}
+th,td{text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+thead th{font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);padding:12px 8px;background:var(--surface);white-space:nowrap}
+thead th.op{text-align:center;width:78px;cursor:pointer}
+thead th.op.on{color:var(--accent)}
+th.first,td.first{position:sticky;left:0;background:var(--surface);z-index:1}
+td.first{width:340px;min-width:260px;padding:12px 14px 12px 16px}
+td.first .art{font-family:var(--font-mono);font-size:12px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--graphite);display:block;margin-bottom:2px}
+td.first .t{font-weight:700;font-size:14.5px;line-height:1.3}
+td.sum{padding:12px 14px;font-size:13.5px;color:var(--ink);max-width:46ch;min-width:260px}
+td.mk{text-align:center;padding:14px 4px}
+td.mk.on,th.op.on{background:var(--accent-soft)}
+td.date{font-family:var(--font-mono);font-size:12px;padding:12px 16px 12px 8px;white-space:nowrap;font-variant-numeric:tabular-nums;color:var(--muted)}
+tr.grp th{background:var(--bg);font-family:var(--font-display);font-weight:700;font-size:19px;text-transform:none;letter-spacing:0;color:var(--ink);padding:16px 16px 8px;position:sticky;left:0}
+tr.grp th small{display:block;font-family:var(--font-body);font-size:13px;color:var(--muted);margin-top:2px}
+tr.item{cursor:pointer}
+tr.item:hover td{background:color-mix(in srgb,var(--accent-soft) 45%,var(--surface))}
+tr.item:hover td.mk.on{background:var(--accent-soft)}
+.dot{display:inline-block;width:13px;height:13px;border-radius:50%;vertical-align:middle}
+.d1{background:var(--accent)}
+.d2{border:2px solid var(--accent);background:linear-gradient(90deg,var(--accent) 50%,transparent 50%)}
+.badge{display:inline-block;font-family:var(--font-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--omni);background:var(--omni-soft);border-radius:3px;padding:1px 6px;margin-left:6px;vertical-align:2px}
+.caret{font-family:var(--font-mono);color:var(--muted);font-size:11px;margin-top:6px;display:block}
+tr.detail td{background:var(--bg);padding:0}
+.det{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px 28px;padding:14px 16px 18px;font-size:13.5px}
+.det h4{margin:0 0 4px;font-family:var(--font-mono);font-size:11px;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.det .o h4{color:var(--omni)}
+.det p{margin:0;max-width:62ch}
+.empty{padding:28px 16px;color:var(--muted)}
+
+footer{display:grid;gap:10px;font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:16px}
+footer p{margin:0;max-width:90ch}
+@media (max-width:640px){ td.first{width:220px;min-width:200px} .count{margin-left:0} }
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="intro">
+    <div class="mast">
+      <div class="brand">kalby<span>.</span></div>
+      <div class="ref">REG (EU) 2024/1689 · AS AMENDED BY REG (EU) 2026/1744</div>
+    </div>
+    <h1>EU AI Act Compliance Matrix</h1>
+    <p class="lede">A high-level overview of who must do what under the AI Act. Each row is an article; each column is an operator. Requirements are grouped into three classes: high-risk AI systems, AI systems generally, and general-purpose AI models. Select a row for conditions and changes made by the Digital Omnibus on AI.</p>
+    <div class="basis">
+      <div><b>Basis</b><a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">AI Act (OJ 12 Jul 2024)</a></div>
+      <div><a href="https://eur-lex.europa.eu/eli/reg/2026/1744/oj/eng" target="_blank" rel="noopener">Digital Omnibus on AI (OJ 24 Jul 2026)</a></div>
+      <div><b>Status at</b><span id="asof">28 Oct 2026</span></div>
+    </div>
+  </header>
+
+  <section aria-labelledby="tl-h">
+    <h2 class="section-label" id="tl-h">Application timeline</h2>
+    <div class="tl"><ol id="tl"></ol></div>
+  </section>
+
+  <section aria-labelledby="mx-h" style="display:grid;gap:14px">
+    <h2 class="section-label" id="mx-h" style="margin:0">Matrix</h2>
+    <div class="controls">
+      <div class="row" role="group" aria-label="Class">
+        <span class="lab">Class</span>
+        <button class="chip" id="c-all" data-cls="all" aria-pressed="true">All</button>
+        <button class="chip" id="c-hr" data-cls="hr" aria-pressed="false">High-risk AI systems</button>
+        <button class="chip" id="c-ai" data-cls="ai" aria-pressed="false">AI systems</button>
+        <button class="chip" id="c-gp" data-cls="gp" aria-pressed="false">GPAI models</button>
+      </div>
+      <div class="row" role="group" aria-label="Operator">
+        <span class="lab">I am a</span>
+        <span id="opchips" class="row"></span>
+      </div>
+      <div class="row">
+        <span class="lab">Find</span>
+        <input class="search" id="q" type="search" placeholder="Article or keyword, e.g. Art. 26, logs, FRIA" aria-label="Search articles">
+        <button class="chip omnichip" id="omni" aria-pressed="false">Omnibus changes only</button>
+        <span class="count" id="count"></span>
+      </div>
+    </div>
+    <div class="legend">
+      <span><i class="dot d1"></i>Applies</span>
+      <span><i class="dot d2"></i>Applies in specific circumstances</span>
+      <span><span class="badge" style="margin:0">Omnibus</span>Amended or added by Reg 2026/1744</span>
+    </div>
+    <div class="tablebox">
+      <table>
+        <thead><tr id="head"></tr></thead>
+        <tbody id="body"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>
+    <p>Digital Omnibus on AI: Regulation (EU) 2026/1744 of 8 July 2026, published in the Official Journal on 24 July 2026, in force since 27 July 2026. High-risk dates refer to Chapter III, Sections 1–3. Systems lawfully placed on the market before their date stay subject only if significantly changed afterwards (Art. 111(2)); high-risk systems used by public authorities must comply by 2 August 2030.</p>
+    <p>This matrix is a general overview, not legal advice. Check the consolidated text and Commission guidelines for your case. © kalby · <a href="https://kalby.eu" target="_blank" rel="noopener">kalby.eu</a></p>
+  </footer>
+</div>
+
+<script>
+const OPS=[["P","Provider"],["D","Deployer"],["M","Product manufacturer"],["A","Authorised representative"],["I","Importer"],["Di","Distributor"]];
+const SHORT={P:"Provider",D:"Deployer",M:"Prod. mfr",A:"Auth. rep.",I:"Importer",Di:"Distributor"};
+const CLS={hr:["High-risk AI systems","Annex I products and Annex III use cases. Product manufacturers carry provider duties when the AI is placed under their name (Art. 25(3))."],
+ ai:["AI systems","Rules that apply regardless of risk class, including prohibitions and transparency duties."],
+ gp:["General-purpose AI models","Obligations on model providers; additional duties for models with systemic risk."]};
+const HR="2 Dec 2027 / 2 Aug 2028";
+const MFR="Product manufacturers: as provider where the AI system is a safety component of an Annex I product placed under their name (Art. 25(3)).";
+const R=[
+["hr","Art. 6 · Annexes I, III","Classification as high-risk","A system is high-risk if it is, or is a safety component of, an Annex I product needing third-party assessment, or falls in an Annex III use case. An Annex III system can be exempted if it poses no significant risk; the provider documents that assessment.",{P:1,M:2},HR,"New Art. 6(1a)–(1c): AI functions that only assist or optimise, without creating a health or safety risk, are not safety components. Products assessed only for non-safety risks (e.g. EMC, spectrum) are excluded.",MFR],
+["hr","Art. 8","Compliance with requirements","Ensure the system meets Arts. 9–15 in light of its intended purpose and the state of the art. Annex I products may fold testing and documentation into existing sectoral procedures.",{P:1,M:2},HR,"New Art. 2(13): the Commission may limit Chapter III requirements by delegated act where Annex I sectoral law sets equivalent AI requirements.",MFR],
+["hr","Art. 9","Risk management system","Run a documented, iterative risk management process across the lifecycle, with testing and attention to effects on minors and vulnerable groups.",{P:1,M:2},HR,null,MFR],
+["hr","Art. 10","Data and data governance","Training, validation and testing data must be relevant, representative and as error-free and complete as possible, under documented governance with bias examination.",{P:1,M:2},HR,"Art. 10(5) deleted. Processing special-category data for bias detection now rests on new Art. 4a.",MFR],
+["hr","Art. 11 · Annex IV","Technical documentation","Draw up Annex IV documentation before placing on the market and keep it up to date.",{P:1,M:2},HR,"Simplified technical documentation for SMEs and small mid-caps (SMCs), on a Commission form.",MFR],
+["hr","Art. 12","Record-keeping","Design the system to log events automatically over its lifetime, enabling traceability and monitoring.",{P:1,M:2},HR,null,MFR],
+["hr","Art. 13","Transparency and instructions for use","Supply instructions covering identity, capabilities, limitations, accuracy metrics, oversight measures and log handling, so deployers can interpret output.",{P:1,M:2},HR,null,MFR],
+["hr","Art. 14","Human oversight","Design the system so people can effectively oversee it, understand its limits, override it and stop it.",{P:1,M:2},HR,null,MFR],
+["hr","Art. 15","Accuracy, robustness, cybersecurity","Achieve and declare appropriate accuracy, and resilience to errors and attacks such as data poisoning and adversarial inputs.",{P:1,M:2},HR,"New Art. 42(3): systems meeting Cyber Resilience Act essential requirements are presumed to meet the Art. 15 cybersecurity requirements.",MFR],
+["hr","Art. 16","Obligations of providers","Umbrella duty: meet Section 2, show name and contact, run a QMS, keep documentation and logs, complete conformity assessment, affix CE marking, register, take corrective action and meet accessibility rules.",{P:1,M:2},HR,null,MFR],
+["hr","Art. 17","Quality management system","Document a QMS covering compliance strategy, design control, testing, data and risk management, post-market monitoring, incident reporting and accountability.",{P:1,M:2},HR,"QMS now proportionate to organisation size. Simplified QMS (Art. 63) extended from microenterprises to all SMEs, and relief extended to SMCs.",MFR],
+["hr","Art. 18","Documentation keeping","Keep technical documentation, QMS records, conformity documents and the EU declaration available to authorities for 10 years.",{P:1,M:2,A:2},HR,null,"Authorised representatives keep copies available under their mandate (Art. 22(3)). "+MFR],
+["hr","Art. 19","Automatically generated logs","Keep logs under the provider's control for at least six months.",{P:1,M:2},HR,null,MFR],
+["hr","Art. 20","Corrective actions and duty of information","If a system is non-conforming, correct, withdraw, disable or recall it; inform distributors, deployers, the authorised representative and importers; alert authorities if it presents a risk.",{P:1,M:2},HR,null,MFR],
+["hr","Art. 21","Cooperation with competent authorities","On reasoned request, provide documentation and log access that demonstrate conformity.",{P:1,M:2,A:2},HR,null,"Authorised representatives cooperate under their mandate (Art. 22(3)). "+MFR],
+["hr","Art. 22","Authorised representatives","Non-EU providers appoint an EU representative by written mandate. The representative verifies documentation, keeps records for 10 years, cooperates with authorities and ends the mandate if the provider breaches the Act.",{P:1,A:1},HR,null,null],
+["hr","Art. 23","Obligations of importers","Before placing on the market, verify conformity assessment, documentation, CE marking, declaration and representative; add own name and contact; keep documents 10 years; withhold non-conforming systems.",{I:1},HR,null,null],
+["hr","Art. 24","Obligations of distributors","Check CE marking, declaration and instructions; do not supply systems believed non-conforming; keep storage and transport from compromising compliance; take or ensure corrective action.",{Di:1},HR,null,null],
+["hr","Art. 25","Responsibilities along the value chain","A distributor, importer, deployer or third party becomes the provider if it rebrands, substantially modifies or repurposes a system into high-risk. Component suppliers support providers by written agreement.",{P:1,D:2,M:1,I:2,Di:2},HR,null,"Deployers, importers and distributors take on provider duties only when they rebrand, substantially modify, or change the intended purpose."],
+["hr","Art. 26","Obligations of deployers","Use per instructions, assign competent human oversight, ensure relevant input data, monitor and report risks and incidents, keep logs at least six months, and inform workers and affected persons.",{D:1},HR,null,null],
+["hr","Art. 27","Fundamental rights impact assessment","Assess impacts on fundamental rights before first use and notify the market surveillance authority.",{D:2},HR,"A FRIA may reference or incorporate parts of a GDPR DPIA. The AI Office will provide a questionnaire template, including an automated tool.","Public bodies, private entities providing public services, and deployers using Annex III 5(b) credit scoring or 5(c) life and health insurance pricing."],
+["hr","Art. 43","Conformity assessment","Complete internal control (Annex VI) or notified-body assessment (Annex VII) before placing on the market; repeat after substantial modification.",{P:1,M:2},HR,"Art. 43(3) rewritten: Annex I Section A notified bodies may assess AI requirements, applying for designation by 28 Jan 2028. Single application for designation under several acts (Art. 28).",MFR],
+["hr","Art. 47 · Annex V","EU declaration of conformity","Sign a machine-readable declaration per system, keep it 10 years and supply it to authorities.",{P:1,M:2,A:2,I:2},HR,null,"Importers and authorised representatives verify the declaration exists; they do not draw it up. "+MFR],
+["hr","Art. 48","CE marking","Affix CE marking visibly, legibly and indelibly, digitally for digital-only systems, with the notified body number where relevant.",{P:1,M:2,I:2,Di:2},HR,null,"Importers and distributors verify the marking is present. "+MFR],
+["hr","Art. 49 · Annex VIII","Registration","Register provider and system in the EU database before placing on the market. Critical-infrastructure systems (Annex III point 2) register nationally.",{P:1,D:2,M:2,A:2},HR,"Annex III systems the provider considers not high-risk (Art. 6(3)) must still register, with reduced information under Annex VIII Section B.","Public-authority deployers register their use. Authorised representatives may register on the provider's behalf. "+MFR],
+["hr","Art. 72","Post-market monitoring","Run a documented monitoring system and plan that actively collects and analyses performance data over the system's lifetime.",{P:1,M:2},HR,"Commission guidance and template for the monitoring plan due by 2 Sep 2027.",MFR],
+["hr","Art. 73","Serious incident reporting","Report serious incidents to the market surveillance authority within 15 days; 2 days for widespread infringements or critical-infrastructure disruption; 10 days in case of death.",{P:1,D:2,M:2},HR,null,"Deployers inform the provider first and report directly if the provider cannot be reached (Art. 26(5)). "+MFR],
+["hr","Art. 86","Right to explanation","On request, explain the role of the AI system and main elements of a decision with legal or similarly significant effects, based on Annex III output (except point 2).",{D:1},HR,null,null],
+["hr","Arts. 79–83","Measures ordered by market surveillance","Take corrective action, withdraw or recall when an authority finds a system non-compliant or presenting a risk, including compliant systems that still present a risk.",{P:1,D:2,M:2,A:2,I:2,Di:2},"2 Aug 2026",null,"Applies to whichever operator the authority addresses."],
+
+["ai","Art. 2","Scope","Covers providers placing AI systems or GPAI models on the EU market wherever established, EU deployers, and non-EU providers and deployers whose output is used in the EU. Excludes military, national security, pure research and personal use.",{P:1,D:1,M:1,A:1,I:1,Di:1},"1 Aug 2024","New Art. 2(13) equivalence clause for Annex I products; Art. 2(7) keeps Arts. 4a and 59 alongside the GDPR.",null],
+["ai","Art. 4","AI literacy","Take measures to support a sufficient level of AI literacy among staff and others operating AI systems on your behalf, considering their knowledge and the context of use.",{P:1,D:1},"2 Feb 2025","Reworded from 'ensure' to 'take measures to support'; no specific literacy level required. The Commission will publish practical examples.",null],
+["ai","Art. 4a","Special-category data for bias correction","Exceptionally process special categories of personal data to detect and correct bias where strictly necessary, under cumulative safeguards. A permission, not an obligation.",{P:1,D:2},"27 Jul 2026","New article.","Deployers of high-risk systems only in narrow cases."],
+["ai","Art. 5(1)(a)–(h)","Prohibited practices","Do not place on the market, put into service or use AI for harmful manipulation, exploiting vulnerabilities, social scoring, profiling-based crime prediction, untargeted facial scraping, emotion recognition at work or school, sensitive biometric categorisation, or real-time remote biometric ID for policing (narrow exceptions).",{P:1,D:1,M:1,A:1,I:1,Di:1},"2 Feb 2025",null,null],
+["ai","Art. 5(1)(ba)–(bb), (1a)–(1b)","Prohibited: intimate deepfakes and CSAM","Do not place on the market, put into service or use AI to generate non-consensual intimate or sexually explicit depictions of identifiable people, or child sexual abuse material.",{P:1,D:1},"2 Dec 2026","New prohibitions. Providers are liable where such output is intended or reasonably foreseeable without adequate safeguards; deployers when they use the system for that purpose. Edits that don't increase exposure or change the nature of the content are not 'manipulation'.",null],
+["ai","Art. 50(1)","Disclosure of AI interaction","Design systems that interact with people so those people are told they are dealing with AI, unless obvious from context.",{P:1},"2 Aug 2026",null,null],
+["ai","Art. 50(2)","Marking synthetic content","Mark AI-generated or manipulated audio, image, video and text in a machine-readable, detectable format, as far as technically feasible.",{P:1},"2 Aug 2026","Generative systems placed on the market before 2 Aug 2026 have until 2 Dec 2026 (new Art. 111(4)).",null],
+["ai","Art. 50(3)","Emotion recognition and biometric categorisation notice","Inform people exposed to such a system that it is operating, and process their data in line with the GDPR.",{D:1},"2 Aug 2026",null,null],
+["ai","Art. 50(4)","Deepfakes and AI-generated public-interest text","Disclose that deepfake image, audio or video is artificial, and that AI-generated text published to inform the public is AI-made, unless human-reviewed under editorial responsibility.",{D:1},"2 Aug 2026",null,null],
+["ai","Art. 50(5)–(7)","Manner of disclosure","Give the information clearly and distinguishably, at the latest at first interaction, meeting accessibility requirements. Codes of practice guide implementation.",{P:1,D:1},"2 Aug 2026","Art. 50(7) replaced: the Commission keeps a residual power to adopt implementing acts if codes of practice are inadequate.",null],
+["ai","Art. 75 · 75a–75d","AI Office supervision","The AI Office supervises AI systems built on a GPAI model by the same provider or group, and systems that are or sit within very large online platforms or search engines.",{P:2},"2 Aug 2026","Rewritten and expanded. New Arts. 75a–75d give the AI Office inspection, commitment and fining powers, including periodic penalties up to 5% of average daily turnover.","Providers of AI systems built on their own (or their group's) GPAI model, or integrated into a VLOP or VLOSE."],
+["ai","Arts. 57–63","Sandboxes, real-world testing and SME support","Voluntary: join regulatory sandboxes or test in real-world conditions. SMEs and start-ups get priority, free sandbox access and simplified compliance.",{P:2},"2 Aug 2026","National sandboxes due by 2 Aug 2027; an EU-level AI Office sandbox is added; priority access extends to SMCs; real-world testing extends to Annex I products (Art. 60a).","Voluntary measures, not obligations."],
+["ai","Art. 95","Voluntary codes of conduct","Apply some or all high-risk requirements, or other commitments, to AI systems outside the high-risk class.",{P:2,D:2},"2 Aug 2026",null,"Voluntary."],
+["ai","Art. 99","Penalties","Up to €35m or 7% of worldwide turnover for prohibited practices; €15m or 3% for most other obligations; €7.5m or 1% for misleading information to authorities. SMEs face the lower of the two.",{P:1,D:1,M:1,A:1,I:1,Di:1},"2 Aug 2025","SMCs also get the lower-of cap (new Art. 99(6a)); Member States must consider SME and SMC viability.",null],
+
+["gp","Art. 51","Classification with systemic risk","A model has systemic risk if it has high-impact capabilities, presumed above 10²⁵ FLOP of training compute, or if the Commission designates it.",{P:1},"2 Aug 2025",null,null],
+["gp","Art. 52","Notification","Notify the Commission within two weeks of meeting, or knowing you will meet, the systemic-risk threshold. You may argue the model does not present systemic risk.",{P:1},"2 Aug 2025",null,null],
+["gp","Art. 53(1)(a)–(b) · Annexes XI, XII","Documentation for the AI Office and downstream providers","Keep Annex XI technical documentation for the AI Office and give Annex XII information to providers integrating the model.",{P:1},"2 Aug 2025",null,"Open-source models with public weights are exempt unless they present systemic risk (Art. 53(2))."],
+["gp","Art. 53(1)(c)","Copyright policy","Put in place a policy to comply with EU copyright law, including identifying and respecting text-and-data-mining opt-outs.",{P:1},"2 Aug 2025",null,null],
+["gp","Art. 53(1)(d)","Training content summary","Publish a sufficiently detailed summary of training content using the AI Office template.",{P:1},"2 Aug 2025",null,null],
+["gp","Art. 54","Authorised representatives","Non-EU providers appoint an EU representative by written mandate before placing the model on the market. The representative verifies documentation, keeps it 10 years and cooperates with the AI Office.",{P:1,A:1},"2 Aug 2025",null,"Open-source models without systemic risk are exempt."],
+["gp","Art. 55","Systemic-risk obligations","Run state-of-the-art evaluations including adversarial testing, assess and mitigate systemic risks, track and report serious incidents to the AI Office, and ensure adequate cybersecurity.",{P:2},"2 Aug 2025",null,"Only providers of models with systemic risk."],
+["gp","Art. 56","Codes of practice","Providers may rely on the GPAI Code of Practice to show compliance until harmonised standards exist; others must show adequate alternative means.",{P:1},"2 Aug 2025","Art. 56(6) amended: the Commission's implementing power to give codes general validity is removed.",null],
+["gp","Art. 101","Fines for GPAI providers","The Commission can fine providers up to 3% of worldwide turnover or €15m for breaches, or for failing information requests or access for evaluation.",{P:1},"2 Aug 2026",null,null],
+["gp","Art. 111(3)","Models already on the market","Models placed on the market before 2 Aug 2025 must comply by 2 Aug 2027.",{P:2},"2 Aug 2027",null,"Only models placed on the market before 2 Aug 2025."]
+];
+const TL=[["2024-08-01","Entry into force",0],["2025-02-02","Prohibitions and AI literacy",0],["2025-08-02","GPAI obligations, governance, penalties",0],["2026-07-27","Omnibus in force; Art. 4a applies",1],["2026-08-02","General application: Art. 50, AI Office enforcement, GPAI fines",0],["2026-12-02","New prohibitions; Art. 50(2) for older generative systems",1],["2027-08-02","Pre-2025 GPAI models; national sandboxes",0],["2027-12-02","High-risk: Annex III systems",1],["2028-08-02","High-risk: Annex I products",1],["2030-08-02","Pre-existing public-authority high-risk systems",0]];
+
+const st={cls:"all",ops:new Set(),q:"",omni:false,open:new Set()};
+try{const s=JSON.parse(localStorage.getItem("aiam")||"{}");if(s.cls)st.cls=s.cls;if(s.ops)st.ops=new Set(s.ops);if(s.omni)st.omni=true}catch(e){}
+const save=()=>{try{localStorage.setItem("aiam",JSON.stringify({cls:st.cls,ops:[...st.ops],omni:st.omni}))}catch(e){}};
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const fmt=d=>new Date(d+"T00:00:00").toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+
+// Timeline
+(function(){const today=new Date();document.getElementById("asof").textContent=today.toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+ const ol=document.getElementById("tl");let html="",nowAt=-1;
+ TL.forEach(([d,t,o],i)=>{const past=new Date(d+"T00:00:00")<=today;if(past)nowAt=i;
+  html+=`<li class="${past?"past":""} ${o?"omni":""}"><time datetime="${d}">${fmt(d)}</time><span>${esc(t)}</span></li>`});
+ ol.innerHTML=html;
+ if(nowAt>=0&&nowAt<TL.length-1){const li=ol.children[nowAt+1];const m=document.createElement("i");m.className="now";m.style.left="-14px";m.innerHTML="<em>Today</em>";li.appendChild(m)}
+})();
+
+// Operator chips + header
+const opbox=document.getElementById("opchips");
+OPS.forEach(([k,n])=>{const b=document.createElement("button");b.className="chip";b.id="op-"+k;b.textContent=n;b.dataset.op=k;opbox.appendChild(b)});
+opbox.addEventListener("click",e=>{const b=e.target.closest("[data-op]");if(!b)return;toggleOp(b.dataset.op)});
+function toggleOp(k){st.ops.has(k)?st.ops.delete(k):st.ops.add(k);render()}
+document.querySelectorAll("[data-cls]").forEach(b=>b.addEventListener("click",()=>{st.cls=b.dataset.cls;render()}));
+document.getElementById("q").addEventListener("input",e=>{st.q=e.target.value.trim().toLowerCase();render()});
+document.getElementById("omni").addEventListener("click",()=>{st.omni=!st.omni;render()});
+document.getElementById("head").addEventListener("click",e=>{const th=e.target.closest("[data-op]");if(th)toggleOp(th.dataset.op)});
+document.getElementById("body").addEventListener("click",e=>{const tr=e.target.closest("tr.item");if(!tr)return;const i=+tr.dataset.i;st.open.has(i)?st.open.delete(i):st.open.add(i);render()});
+document.getElementById("body").addEventListener("keydown",e=>{if((e.key==="Enter"||e.key===" ")&&e.target.matches("tr.item")){e.preventDefault();e.target.click()}});
+
+function render(){
+ save();
+ document.querySelectorAll("[data-cls]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.cls===st.cls));
+ OPS.forEach(([k])=>document.getElementById("op-"+k).setAttribute("aria-pressed",st.ops.has(k)));
+ document.getElementById("omni").setAttribute("aria-pressed",st.omni);
+ document.getElementById("head").innerHTML=`<th class="first" scope="col">Article</th><th scope="col">Requirement</th>`+
+  OPS.map(([k,n])=>`<th scope="col" class="op ${st.ops.has(k)?"on":""}" data-op="${k}" title="${n}">${SHORT[k]}</th>`).join("")+`<th scope="col">Applies from</th>`;
+ const rows=R.map((r,i)=>({r,i})).filter(({r})=>{
+  if(st.cls!=="all"&&r[0]!==st.cls)return false;
+  if(st.omni&&!r[6])return false;
+  if(st.ops.size&&![...st.ops].some(k=>r[4][k]))return false;
+  if(st.q){const hay=(r[1]+" "+r[2]+" "+r[3]+" "+(r[6]||"")+" "+(r[7]||"")).toLowerCase();if(!hay.includes(st.q))return false}
+  return true});
+ let html="",last="";const cols=OPS.length+3;
+ rows.forEach(({r,i})=>{
+  if(r[0]!==last){last=r[0];html+=`<tr class="grp"><th colspan="${cols}" scope="colgroup">${CLS[r[0]][0]}<small>${CLS[r[0]][1]}</small></th></tr>`}
+  const open=st.open.has(i);
+  html+=`<tr class="item" data-i="${i}" tabindex="0" aria-expanded="${open}"><td class="first"><span class="art">${esc(r[1])}</span><span class="t">${esc(r[2])}</span>${r[6]?'<span class="badge">Omnibus</span>':""}<span class="caret">${open?"− Hide detail":"+ Detail"}</span></td><td class="sum">${esc(r[3])}</td>`+
+   OPS.map(([k,n])=>{const v=r[4][k];return `<td class="mk ${st.ops.has(k)?"on":""}">${v?`<i class="dot d${v}" role="img" aria-label="${n}: ${v===1?"applies":"applies in specific circumstances"}"></i>`:""}</td>`}).join("")+
+   `<td class="date">${esc(r[5]).replace(" / ","<br>")}${r[5]===HR?'<br><small>Annex III / Annex I</small>':""}</td></tr>`;
+  if(open){html+=`<tr class="detail"><td colspan="${cols}"><div class="det">`+
+   (r[7]?`<div><h4>Conditions</h4><p>${esc(r[7])}</p></div>`:"")+
+   (r[6]?`<div class="o"><h4>Digital Omnibus change</h4><p>${esc(r[6])}</p></div>`:`<div><h4>Digital Omnibus change</h4><p>No substantive change.</p></div>`)+
+   `</div></td></tr>`}
+ });
+ document.getElementById("body").innerHTML=html||`<tr><td colspan="${cols}" class="empty">No articles match these filters. Clear the search or select another operator.</td></tr>`;
+ document.getElementById("count").textContent=`${rows.length} of ${R.length} articles`;
+}
+render();
+</script>
+</body>
+</html>
